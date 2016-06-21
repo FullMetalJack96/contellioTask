@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Test</title>
+  <link rel="stylesheet" href="./css/bootstrap.min.css" media="screen" title="no title" charset="utf-8">
+  <link rel="stylesheet" href="./css/main.css" media="screen" title="no title" charset="utf-8">
+  <link rel="stylesheet" href="./css/mdb.min.css" media="screen" title="no title" charset="utf-8">
+  <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+
+</head>
+<body class="elegant-color-dark">
+  <script src="https://cdn.firebase.com/js/client/2.4.2/firebase.js"></script>
+  <script>
+    var ref = new Firebase("https://contelliotest.firebaseio.com");
+
+    function saveData() {
+      var mydata = $("#firebase").val();
+      ref.set({
+        data: mydata,
+      })
+    }
+    $(document).ready(function() {
+      //  console.log()
+
+      ref.child("data").on("value", function(snapshot) {
+        $("#firebaseData").html("Dane z bazy: " + snapshot.val());
+      });
+
+      $("#sendFirebase").click(function() {
+        saveData();
+        console.log('wysyłam dane');
+      })
+    })
+  </script>
+
+  <div class="container z-depth-2 teal elegant-color">
+
+
+    <div class="row">
+      <div class="col-md-2">
+        <div class="center">
+          <img class="img-fluid center-block" id="profilePicture" alt="profilePicture">
+          <h4 id="title"></h4>
+          <p id="cardContent"></p>
+        </div>
+      </div>
+      <div class="col-md-8">
+        <h1 class="animated bounceIn h1-responsive center">Witaj</h1></div>
+      <div class="col-md-2"><a class="btn btn-large blue" id='logout'>WYLOGUJ</a></div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-2"></div>
+      <div class="col-md-8">
+        <div id="dataDisplay" class="z-depth-2">
+        </div>
+      </div>
+      <div class="col-md-2"></div>
+
+    </div>
+    <div class="row">
+      <div id="myForm" class="md-form col-md-12">
+        <h3 class="center">Zapisz pole w Firebase</h3>
+        <input type="text" id="firebase" placeholder="Twoje dane" />
+        <a href="#" class="btn btn-success center-block" id="sendFirebase">Send</a>
+
+        <p id="firebaseData"></p>
+      </div>
+    </div>
+
+  </div>
+  <script src="../js/login.js"></script>
+</body>
+<script type="text/javascript" src="./js/bootstrap.min.js"></script>
+<script type="text/javascript" src="./js/mdb.min.js"></script>
+<script type="text/javascript" src="./js/imgix.js"></script>
+<script src="./js/md5.js"></script>
+<script type="text/javascript" src="./js/index.js"></script>
+
+</html>
